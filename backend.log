@@ -898,3 +898,15 @@ INFO:     127.0.0.1:62559 - "GET /phones?available_only=true HTTP/1.1" 307 Tempo
 INFO:     127.0.0.1:62560 - "GET /phones?available_only=true&deals_only=true HTTP/1.1" 307 Temporary Redirect
 INFO:     127.0.0.1:62557 - "GET /phones/?available_only=true HTTP/1.1" 200 OK
 INFO:     127.0.0.1:62558 - "GET /phones/?available_only=true&deals_only=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63523 - "GET /phones?available_only=true HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:63524 - "GET /phones?available_only=true&deals_only=true HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:63523 - "GET /phones/?available_only=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63524 - "GET /phones/?available_only=true&deals_only=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63525 - "GET /phones?available_only=true HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:63526 - "GET /phones?available_only=true&deals_only=true HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:63523 - "GET /phones/?available_only=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63524 - "GET /phones/?available_only=true&deals_only=true HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [47467]

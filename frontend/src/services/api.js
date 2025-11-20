@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { authHelpers } from './supabase'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:7860'
 
 // Create axios instance
 const api = axios.create({
