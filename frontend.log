@@ -1,0 +1,63 @@
+
+> balaji-mobiles-frontend@1.0.0 dev
+> vite
+
+
+  VITE v5.4.21  ready in 1014 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+11:58:17 PM [vite] hmr update /src/pages/Home.jsx, /src/index.css
+11:58:18 PM [vite] hmr update /src/components/Navbar.jsx, /src/index.css
+11:58:19 PM [vite] hmr update /src/components/Footer.jsx, /src/index.css
+11:58:20 PM [vite] hmr update /src/components/Footer.jsx, /src/index.css
+11:58:22 PM [vite] hmr update /src/components/Footer.jsx, /src/index.css
+11:58:23 PM [vite] page reload index.html
+11:58:54 PM [vite] hmr update /src/components/Footer.jsx, /src/index.css
+11:58:54 PM [vite] hmr update /src/components/Navbar.jsx, /src/index.css
+11:58:54 PM [vite] hmr update /src/pages/Home.jsx, /src/index.css
+11:58:54 PM [vite] page reload index.html
+12:00:52 AM [vite] hmr update /src/pages/Home.jsx, /src/index.css
+12:01:07 AM [vite] hmr update /src/pages/Home.jsx, /src/index.css
+12:01:19 AM [vite] hmr update /src/pages/Home.jsx, /src/index.css
+12:05:35 AM [vite] hmr update /src/pages/Home.jsx, /src/index.css
+12:05:37 AM [vite] hmr update /src/pages/Home.jsx, /src/index.css
+12:05:39 AM [vite] hmr update /src/pages/Home.jsx, /src/index.css
+12:05:41 AM [vite] hmr update /src/pages/Home.jsx, /src/index.css
+12:05:43 AM [vite] hmr update /src/components/DealBanner.jsx, /src/index.css
+12:05:45 AM [vite] hmr update /src/components/ui/FAQSection.jsx, /src/index.css
+12:05:53 AM [vite] hmr update /src/pages/Home.jsx, /src/index.css
+12:05:53 AM [vite] hmr update /src/components/DealBanner.jsx, /src/index.css
+12:05:53 AM [vite] hmr update /src/components/ui/FAQSection.jsx, /src/index.css
+12:08:12 AM [vite] hmr update /src/components/ui/TestingTimeline.jsx, /src/index.css
+12:08:14 AM [vite] hmr update /src/components/ui/TestingTimeline.jsx, /src/index.css
+12:08:15 AM [vite] hmr update /src/components/ui/PromiseBar.jsx, /src/index.css
+12:08:23 AM [vite] hmr update /src/components/ui/TestingTimeline.jsx, /src/index.css
+12:08:23 AM [vite] hmr update /src/components/ui/PromiseBar.jsx, /src/index.css
+12:09:53 AM [vite] hmr update /src/components/ui/TestingTimeline.jsx, /src/index.css
+12:09:54 AM [vite] hmr update /src/components/ui/TestingTimeline.jsx, /src/index.css
+12:09:56 AM [vite] hmr update /src/components/ui/TestingTimeline.jsx, /src/index.css
+12:09:56 AM [vite] hmr update /src/components/ui/TestingTimeline.jsx, /src/index.css
+12:10:06 AM [vite] hmr update /src/components/ui/TestingTimeline.jsx, /src/index.css
+12:11:41 AM [vite] hmr update /src/components/ui/TestingTimeline.jsx, /src/index.css
+12:11:43 AM [vite] hmr update /src/components/ui/TestingTimeline.jsx, /src/index.css
+12:11:49 AM [vite] hmr update /src/components/ui/TestingTimeline.jsx, /src/index.css
+12:18:11 AM [vite] hmr update /src/pages/Home.jsx, /src/index.css
+12:18:20 AM [vite] hmr update /src/pages/Home.jsx, /src/index.css
+12:30:40 AM [vite] hmr update /src/pages/Home.jsx, /src/index.css
+12:30:41 AM [vite] hmr update /src/components/ui/FAQSection.jsx, /src/index.css
+12:30:43 AM [vite] hmr update /src/components/ui/FAQSection.jsx, /src/index.css
+12:30:45 AM [vite] hmr update /src/components/ui/WhyBuySection.jsx, /src/index.css
+12:30:58 AM [vite] hmr update /src/components/ui/FAQSection.jsx, /src/index.css
+12:30:58 AM [vite] hmr update /src/components/ui/WhyBuySection.jsx, /src/index.css
+12:30:58 AM [vite] hmr update /src/pages/Home.jsx, /src/index.css
+12:33:25 AM [vite] hmr update /src/components/ui/FAQSection.jsx, /src/index.css
+12:33:31 AM [vite] hmr update /src/components/ui/FAQSection.jsx, /src/index.css
+12:34:15 AM [vite] hmr update /src/components/Navbar.jsx, /src/index.css
+12:34:27 AM [vite] hmr update /src/components/Navbar.jsx, /src/index.css
+12:35:56 AM [vite] hmr update /src/components/Footer.jsx, /src/index.css
+12:35:57 AM [vite] hmr update /src/components/Footer.jsx, /src/index.css
+12:36:05 AM [vite] hmr update /src/components/Footer.jsx, /src/index.css
+12:39:23 AM [vite] page reload index.html
+12:39:42 AM [vite] hmr update /src/components/TestimonialCarousel.jsx, /src/index.css
+12:39:50 AM [vite] hmr update /src/components/TestimonialCarousel.jsx, /src/index.css
