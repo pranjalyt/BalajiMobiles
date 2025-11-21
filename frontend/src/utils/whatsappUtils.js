@@ -6,7 +6,8 @@
  * @returns {string} WhatsApp URL with pre-filled message
  */
 export const generateWhatsAppLink = (cartItems, customerName, customerPhone) => {
-    const adminWhatsApp = import.meta.env.VITE_ADMIN_WHATSAPP || '917906829339'
+    // Use environment variable with safe fallback for local development
+    const adminWhatsApp = import.meta.env.VITE_ADMIN_WHATSAPP || (import.meta.env.DEV ? '917906829339' : '')
 
     // Build message
     let message = `Hi, I'm interested in buying:\n\n`

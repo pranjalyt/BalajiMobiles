@@ -1,6 +1,12 @@
 export default function FloatingWhatsApp() {
-    const adminWhatsApp = import.meta.env.VITE_ADMIN_WHATSAPP || '917906829339'
+    // Use environment variable with safe fallback for local development
+    const adminWhatsApp = import.meta.env.VITE_ADMIN_WHATSAPP || (import.meta.env.DEV ? '917906829339' : '')
     const message = encodeURIComponent('Hi! I have a question about your phones.')
+
+    // Don't render if WhatsApp number is not configured (production)
+    if (!adminWhatsApp && !import.meta.env.DEV) {
+        return null
+    }
 
     return (
         <a
