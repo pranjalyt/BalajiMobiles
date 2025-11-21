@@ -3,7 +3,7 @@ import { authHelpers } from './supabase'
 
 // Use environment variable with safe fallback for local development only
 const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:7860' : '')
-
+console.log("Loaded API URL:", import.meta.env.VITE_API_URL);
 if (!API_URL && !import.meta.env.DEV) {
     console.error('VITE_API_URL is not set. API calls will fail.')
 }
