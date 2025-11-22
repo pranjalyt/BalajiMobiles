@@ -1,4 +1,3 @@
-import axios from 'axios'
 
 // Cloudinary configuration from environment variables
 const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME
@@ -19,12 +18,20 @@ export const uploadImage = async (file) => {
     formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET)
 
     try {
-        const response = await axios.post(
+        const response = await fetch(
             `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
-            formData
+            {
+                method: 'POST',
+                body: formData
+            }
         )
 
-        return response.data.secure_url
+        if (!response.ok) {
+            throw new Error(`Upload failed: ${response.statusText}`)
+        }
+
+        const data = await response.json()
+        return data.secure_url
     } catch (error) {
         console.error('Error uploading image:', error)
         throw new Error('Failed to upload image. Please try again.')

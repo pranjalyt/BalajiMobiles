@@ -1,103 +1,90 @@
-import axios from 'axios'
-import { authHelpers } from './supabase'
+const API_KEY = import.meta.env.VITE_GOOGLE_SHEETS_API_KEY;
+const SHEET_ID = import.meta.env.VITE_SHEET_ID;
+const RANGE = "Phones"; // sheet name + data range
 
-// Use environment variable with safe fallback for local development only
-const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:7860' : '')
-console.log("Loaded API URL:", import.meta.env.VITE_API_URL);
-if (!API_URL && !import.meta.env.DEV) {
-    console.error('VITE_API_URL is not set. API calls will fail.')
+function normalizeRow(headers, row) {
+  // fill missing columns so index always exists
+  for (let i = 0; i < headers.length; i++) {
+    if (row[i] === undefined) row[i] = "";
+  }
+
+  const obj = {};
+  headers.forEach((col, i) => {
+    obj[col.trim()] = row[i];
+  });
+
+  // price → number
+  obj.price = parseInt(obj.price) || 0;
+
+  // boolean parsing
+  const bool = v =>
+    v === true ||
+    v === "TRUE" ||
+    v === "true" ||
+    v === 1 ||
+    v === "1" ||
+    v?.toString().toLowerCase() === "yes";
+
+  obj.available = bool(obj.available);
+  obj.is_deal = bool(obj.is_deal);
+
+  // images parsing
+  if (typeof obj.images === "string") {
+    try {
+      // JSON array?
+      obj.images = JSON.parse(obj.images);
+    } catch {
+      // comma separated?
+      obj.images = obj.images.split(",").map(v => v.trim());
+    }
+  }
+  if (!Array.isArray(obj.images)) obj.images = [];
+
+  return obj;
 }
 
-// Create axios instance
-const api = axios.create({
-    baseURL: API_URL,
-    headers: {
-        'Content-Type': 'application/json',
-    },
-})
+async function fetchSheetRaw() {
+  const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${RANGE}?key=${API_KEY}`
+  const res = await fetch(url);
+  const data = await res.json();
+  if (!data.values) return [];
 
-// Request interceptor to add auth token
-api.interceptors.request.use(
-    async (config) => {
-        const token = await authHelpers.getAuthToken()
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`
-        }
-        return config
-    },
-    (error) => {
-        return Promise.reject(error)
-    }
-)
+  const headers = data.values[0];
+  const rows = data.values.slice(1);
 
-// Response interceptor for error handling
-api.interceptors.response.use(
-    (response) => response,
-    (error) => {
-        if (error.response?.status === 401) {
-            console.error('Unauthorized - please log in')
-        }
-        return Promise.reject(error)
-    }
-)
+  return rows.map(r => normalizeRow(headers, r));
+}
 
-// API methods
 export const phoneAPI = {
-    // Get all phones with optional filters
-    async getAllPhones(filters = {}) {
-        const params = new URLSearchParams()
+  async getAllPhones(filters = {}) {
+    let phones = await fetchSheetRaw();
 
-        if (filters.availableOnly !== undefined) {
-            params.append('available_only', filters.availableOnly)
-        }
-        if (filters.dealsOnly !== undefined) {
-            params.append('deals_only', filters.dealsOnly)
-        }
-        if (filters.brand) {
-            params.append('brand', filters.brand)
-        }
-        if (filters.minPrice) {
-            params.append('min_price', filters.minPrice)
-        }
-        if (filters.maxPrice) {
-            params.append('max_price', filters.maxPrice)
-        }
+    if (filters.availableOnly) phones = phones.filter(p => p.available);
+    if (filters.dealsOnly) phones = phones.filter(p => p.is_deal);
+    if (filters.brand) phones = phones.filter(
+      p => p.brand?.toLowerCase() === filters.brand.toLowerCase()
+    );
+    if (filters.minPrice) phones = phones.filter(p => p.price >= filters.minPrice);
+    if (filters.maxPrice) phones = phones.filter(p => p.price <= filters.maxPrice);
 
-        const response = await api.get(`/phones?${params.toString()}`)
-        return response.data
-    },
+    // newest first if created_at exists
+    phones.sort((a, b) => {
+      if (a.created_at && b.created_at)
+        return new Date(b.created_at) - new Date(a.created_at);
+      return 0;
+    });
 
-    // Get all unique brands
-    async getAllBrands(availableOnly = true) {
-        const params = new URLSearchParams()
-        params.append('available_only', availableOnly)
-        const response = await api.get(`/phones/brands?${params.toString()}`)
-        return response.data
-    },
+    return phones;
+  },
 
-    // Get single phone by ID
-    async getPhoneById(id) {
-        const response = await api.get(`/phones/${id}`)
-        return response.data
-    },
+  async getAllBrands(availableOnly = true) {
+    let phones = await fetchSheetRaw();
+    if (availableOnly) phones = phones.filter(p => p.available);
+    return [...new Set(phones.map(p => p.brand))].sort();
+  },
 
-    // Create new phone (admin only)
-    async createPhone(phoneData) {
-        const response = await api.post('/phones', phoneData)
-        return response.data
-    },
-
-    // Update phone (admin only)
-    async updatePhone(id, phoneData) {
-        const response = await api.put(`/phones/${id}`, phoneData)
-        return response.data
-    },
-
-    // Mark phone as sold (admin only)
-    async markAsSold(id) {
-        const response = await api.delete(`/phones/${id}`)
-        return response.data
-    },
-}
-
-export default api
+  async getPhoneById(id) {
+    const phones = await fetchSheetRaw();
+    return phones.find(p => p.id === id || p.id === String(id)) || null;
+  },
+};
